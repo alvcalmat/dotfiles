@@ -35,8 +35,10 @@ alias graphlog="git log --all --decorate --oneline --graph"
 alias superpush="git push origin main && git push overleaf main"
 alias superpull="git pull overleaf main"
 
-# Vincular Overleaf automáticamente si no está vinculado ya
-git remote get-url overleaf >/dev/null 2>&1 || git remote add overleaf "$OVERLEAF_URL"
+# Vincular Overleaf automáticamente SOLO en el repositorio de la tesis si no está vinculado ya
+if git remote -v 2>/dev/null | grep -q "thesis-mirror"; then
+    git remote get-url overleaf >/dev/null 2>&1 || git remote add overleaf "$OVERLEAF_URL"
+fi
 
 # Tmux aliases
 alias kmux="tmux kill-session"
